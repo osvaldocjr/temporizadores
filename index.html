@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <main class="main-temporizador">
+        <section>
+            <div>
+                <div class="temporizador">
+                    <label for="tempo1" class="temporizador-um">1º Temporizador:</label>
+                    <input type="text" class="horas1" min="0" max="23" value="00" maxlength="2">:
+                    <input type="text" class="minutos1" min="0" max="59" value="00" maxlength="2">:
+                    <input type="text" class="segundos1" min="0" max="59" value="00" maxlength="2">
+                </div>
+                <div class="divErro"></div>
+            </div>
+
+            <div class="temporizador dois">
+                <label for="tempo2">2º Temporizador:</label>
+                <input type="text" class="horas2" min="0" max="23" value="00" maxlength="2">:
+                <input type="text" class="minutos2" min="0" max="59" value="00" maxlength="2">:
+                <input type="text" class="segundos2" min="0" max="59" value="00" maxlength="2"><span>(Opcional)</span>
+            </div>
+        </section>
+
+        <section class="botoes">
+            <button class="iniciar-btn">Iniciar tempo</button>
+            <button class="parar-btn">Reiniciar tempo</button>
+            <div class="audio">
+                <audio class="meuAudio" controls>
+                    <source src="assets/audio/alarme.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </section>
+
+        <section class="tempo-final">
+            <div class="contador1">1º tempo restante: 00:00:00</div>
+            <div class="contador2">2º tempo restante: 00:00:00</div>
+        </section>
+    </main>
+    <main class="painel-imagem">
+        <div class="gif-container">
+            <img src="assets/img/0bob-esponja.gif" alt="Imagem-Estudando">
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
