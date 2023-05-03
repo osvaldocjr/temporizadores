@@ -62,31 +62,36 @@ function iniciarTemporizadores() {
     const contador2Elemento = document.querySelector(".contador2");
 
     intervalo1 = setInterval(() => {
-        gifImage.src = "assets/img/1bob-comecou-estudar.gif";
-        contador1--;
-        const horasRestantes1 = Math.floor(contador1 / 3600);
-        const minutosRestantes1 = Math.floor((contador1 - horasRestantes1 * 3600) / 60);
-        const segundosRestantes1 = contador1 % 60;
-        contador1Elemento.textContent = `1º tempo restante: ${horasRestantes1.toString().padStart(2, '0')}:${minutosRestantes1.toString().padStart(2, '0')}:${segundosRestantes1.toString().padStart(2, '0')}`;
+    gifImage.src = "assets/img/1bob-comecou-estudar.gif";
+    contador1--;
+    const horasRestantes1 = Math.floor(contador1 / 3600);
+    const minutosRestantes1 = Math.floor((contador1 - horasRestantes1 * 3600) / 60);
+    const segundosRestantes1 = contador1 % 60;
+    contador1Elemento.textContent = `1º tempo restante: ${horasRestantes1.toString().padStart(2, '0')}:${minutosRestantes1.toString().padStart(2, '0')}:${segundosRestantes1.toString().padStart(2, '0')}`;
 
-        if (contador1 <= 0) {
-            clearInterval(intervalo1);
-            som.play();
+    if (contador1 <= 0) {
+        clearInterval(intervalo1);
+        som.play();
 
+        if (duracao2 > 0) {
+            intervalo2 = setInterval(() => {
+                contador2--;
+                const horas2 = Math.floor(contador2 / 3600);
+                const minutos2 = Math.floor((contador2 - horas2 * 3600) / 60);
+                const segundosRestantes2 = contador2 % 60;
+                contador2Elemento.textContent = `2º tempo restante: ${horas2.toString().padStart(2, '0')}:${minutos2.toString().padStart(2, '0')}:${segundosRestantes2.toString().padStart(2, '0')}`;
 
-            if (duracao2 > 0) {
-                intervalo2 = setInterval(() => {
-                    contador2--;
-                    const minutos2 = Math.floor(contador2 / 60);
-                    const segundosRestantes2 = contador2 % 60;
-                    contador2Elemento.textContent = `2º tempo restante: ${horas2.toString().padStart(2, '0')}:${minutos2.toString().padStart(2, '0')}:${segundosRestantes2.toString().padStart(2, '0')}`;
+                if (contador2 <= 0) {
+                    clearInterval(intervalo2);
+                    som.play();
 
-                    if (contador2 <= 0) {
-                        clearInterval(intervalo2);
-                        som.play();
-
-                        iniciarTemporizadores();
+                    iniciarTemporizadores();
+                }
             }, 1000);
+        }
+    }
+}, 1000);
+
       
     pararBtn.addEventListener("click", () => {
         gifImage.src = "assets/img/0bob-esponja.gif"
