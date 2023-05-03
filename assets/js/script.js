@@ -86,29 +86,7 @@ function iniciarTemporizadores() {
                         som.play();
 
                         iniciarTemporizadores();
-                    } else if (contador2 === duracao2 - (15 * 60)) {
-                        // Altera o gif após 15 minutos
-                        gifImage.src = "assets/img/2bob-lapis.gif";
-                    } else if (contador2 === duracao2 - (30 * 60)) {
-                        // Altera o gif após 30 minutos
-                        gifImage.src = "assets/img/3homer-estudando.gif";
-                    } else if (contador2 === duracao2 - (45 * 60)) {
-                        // Altera o gif após 45 minutos
-                        gifImage.src = "assets/img/4bob-nao-aguenta-mais.gif";
-                    }
-                }, 1000);
-            }
-        } else if (contador1 === duracao1 - (15 * 60)) {
-            // Altera o gif após 15 minutos
-            gifImage.src = "assets/img/2bob-lapis.gif";
-        } else if (contador1 === duracao1 - (30 * 60)) {
-            // Altera o gif após 30 minutos
-            gifImage.src = "assets/img/3homer-estudando.gif";
-        } else if (contador1 === duracao1 - (45 * 60)) {
-            // Altera o gif após 45 minutos
-            gifImage.src = "assets/img/4bob-nao-aguenta-mais.gif";
-        }
-    }, 1000);
+            }, 1000);
       
     pararBtn.addEventListener("click", () => {
         gifImage.src = "assets/img/0bob-esponja.gif"
