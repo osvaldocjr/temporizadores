@@ -1,7 +1,7 @@
 const iniciarBtn = document.querySelector(".iniciar-btn");
 const pararBtn = document.querySelector(".parar-btn");
 const gifContainer = document.querySelector(".gif-container");
-const gifImage = document.querySelector(".gif-container img");
+const gifImage = document.querySelector("img");
 const pausarBtn = document.querySelector(".pausar-btn");
 const som = document.querySelector(".meuAudio");
 
@@ -34,14 +34,13 @@ function iniciarTemporizadores() {
         return;
     }
 
-    if (minutos1 > 59 || minutos2 > 59) {
-        alert("Os minutos devem ser menores ou iguais a 59");
+    if (minutos1 > 59 || minutos2 > 59 || segundos1 > 59 || segundos2 > 59) {
+        alert("Os minutos e/ou devem ser menores ou iguais a 59");
         return;
     }
 
-    
-    if (segundos1 > 59 || segundos2 > 59) {
-        alert("Os segundos devem ser menores ou iguais a 59");
+    if (horas1 === 0 && minutos1 === 0 && segundos1 === 0) {
+        alert("Valores invalidos");
         return;
     }
 
@@ -125,4 +124,4 @@ function iniciarTemporizadores() {
         document.querySelector(".minutos2").value = "00";
         document.querySelector(".segundos2").value = "00";
     });
-}    
+}
