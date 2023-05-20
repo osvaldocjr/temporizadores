@@ -66,7 +66,7 @@ function iniciarTemporizadores() {
         const seconds = e.data;
 
         if (seconds <= duracao1) {
-            gifImage.src = "assets/img/1bob-comecou-estudar.gif";
+            gifImage.src = "assets/img/estudos-gif/1bob-comecou-estudar.gif";
             contador1--;
             const horasRestantes1 = Math.floor(contador1 / 3600);
             const minutosRestantes1 = Math.floor((contador1 - horasRestantes1 * 3600) / 60);
@@ -111,7 +111,7 @@ function iniciarTemporizadores() {
     worker1.postMessage('start');
 
     pararBtn.addEventListener("click", () => {
-        gifImage.src = "assets/img/0bob-esponja.gif"
+        gifImage.src = "assets/img/estudos-gif/0bob-esponja.gif"
         clearInterval(intervalo1);
         clearInterval(intervalo2);
         contador1Elemento.textContent = "1º tempo restante: 00:00:00";
