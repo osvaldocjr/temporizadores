@@ -1,0 +1,145 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    box-shadow: 0px 3px 10px #000;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 70px;
+    padding: 15px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+}
+
+.menu a {
+    display: block;
+    padding: 5px;
+
+    text-decoration: none;
+    color: #000;
+    font-size: 25px;
+}
+
+.link:hover {
+    background: #a2a;
+    border-radius: 20px;
+}
+
+.btn-mobile {
+    display: none;
+    color: #000;
+}
+
+
+.linkedin {
+    height: 20px;
+    background: #fff;
+    border-radius: 3px;
+    width: 20px;
+}
+
+.github {
+    height: 20px;
+    width: 20px;
+    background: #000;
+    border-radius: 10px;
+}
+
+.linkedin,
+.github {
+    margin: 0;
+}
+
+@media (max-width: 650px) {
+
+    .menu {
+        display: block;
+        position: absolute;
+        height: 0px;
+        width: 100%;
+        transition: .6s;
+        visibility: hidden;
+        overflow-y: hidden;
+
+        top: 70px;
+        right: 0px;
+        backdrop-filter: blur(5px);
+        z-index: 10000;
+    }
+
+    .nav.active .menu {
+        height: calc(100vh - 70px);
+        visibility: visible;
+    }
+
+    .menu a {
+        padding: 15px 0px;
+        border-bottom: 2px solid #fff;
+    }
+
+    li {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    span {
+        margin-top: 8px;
+    }
+
+    .btn-mobile {
+        display: flex;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        background: none;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .hamburger {
+        display: block;
+        border-top: 2px solid;
+        width: 20px;
+        color: #000;
+    }
+
+    .hamburger::after,
+    .hamburger::before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: currentColor;
+        margin-top: 5px;
+        transition: .3s;
+        position: relative;
+    }
+
+    .nav.active .hamburger {
+        border-top-color: transparent;
+    }
+
+    .nav.active .hamburger::after {
+        transform: rotate(-135deg);
+        top: -7px;
+    }
+
+    .nav.active .hamburger::before {
+        transform: rotate(135deg);
+    }
+
+}
