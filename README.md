@@ -4,7 +4,7 @@ Existem dois temporizadores, e quando um termina, o outro inicia automaticamente
 
 O que foi feito:
 
-Projeto totalmente responsivo.
+Projeto totalmente responsivo.<br>
 Menu interativo.
 Rodapé.
 Temporizador 1 (obrigatório).
