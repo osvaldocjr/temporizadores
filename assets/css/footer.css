@@ -1,0 +1,10 @@
+footer {
+    text-align:center;
+}
+
+
+@media (max-width:350px) {
+    footer {
+        font-size:12px;
+    }
+}
