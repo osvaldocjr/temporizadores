@@ -44,7 +44,6 @@ function iniciarTemporizadores() {
         return;
     }
 
-
     duracao1 = minutos1 * 60 + segundos1;
     if (horas1 > 0) {
         duracao1 += horas1 * 3600;
@@ -61,38 +60,45 @@ function iniciarTemporizadores() {
     const contador1Elemento = document.querySelector(".contador1");
     const contador2Elemento = document.querySelector(".contador2");
 
-    intervalo1 = setInterval(() => {
-    gifImage.src = "assets/img/1bob-comecou-estudar.gif";
-    contador1--;
-    const horasRestantes1 = Math.floor(contador1 / 3600);
-    const minutosRestantes1 = Math.floor((contador1 - horasRestantes1 * 3600) / 60);
-    const segundosRestantes1 = contador1 % 60;
-    contador1Elemento.textContent = `1º tempo restante: ${horasRestantes1.toString().padStart(2, '0')}:${minutosRestantes1.toString().padStart(2, '0')}:${segundosRestantes1.toString().padStart(2, '0')}`;
+    const worker = new Worker('assets/js/timer-worker.js');
 
-    if (contador1 <= 0) {
-        clearInterval(intervalo1);
-        som.play();
+    worker.onmessage = function (e) {
+        const seconds = e.data;
 
-        if (duracao2 > 0) {
-            intervalo2 = setInterval(() => {
-                contador2--;
-                const horas2 = Math.floor(contador2 / 3600);
-                const minutos2 = Math.floor((contador2 - horas2 * 3600) / 60);
-                const segundosRestantes2 = contador2 % 60;
-                contador2Elemento.textContent = `2º tempo restante: ${horas2.toString().padStart(2, '0')}:${minutos2.toString().padStart(2, '0')}:${segundosRestantes2.toString().padStart(2, '0')}`;
+        if (seconds <= duracao1) {
+            gifImage.src = "assets/img/1bob-comecou-estudar.gif";
+            contador1--;
+            const horasRestantes1 = Math.floor(contador1 / 3600);
+            const minutosRestantes1 = Math.floor((contador1 - horasRestantes1 * 3600) / 60);
+            const segundosRestantes1 = contador1 % 60;
+            contador1Elemento.textContent = `1º tempo restante: ${horasRestantes1.toString().padStart(2, '0')}:${minutosRestantes1.toString().padStart(2, '0')}:${segundosRestantes1.toString().padStart(2, '0')}`;
 
-                if (contador2 <= 0) {
-                    clearInterval(intervalo2);
-                    som.play();
+            if (contador1 <= 0) {
+                clearInterval(intervalo1);
+                som.play();
 
-                    iniciarTemporizadores();
+                if (duracao2 > 0) {
+                    intervalo2 = setInterval(() => {
+                        contador2--;
+                        const horas2 = Math.floor(contador2 / 3600);
+                        const minutos2 = Math.floor((contador2 - horas2 * 3600) / 60);
+                        const segundosRestantes2 = contador2 % 60;
+                        contador2Elemento.textContent = `2º tempo restante: ${horas2.toString().padStart(2, '0')}:${minutos2.toString().padStart(2, '0')}:${segundosRestantes2.toString().padStart(2, '0')}`;
+
+                        if (contador2 <= 0) {
+                            clearInterval(intervalo2);
+                            som.play();
+
+                            iniciarTemporizadores();
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
-    }
-}, 1000);
+    };
 
-      
+    worker.postMessage('start');
+
     pararBtn.addEventListener("click", () => {
         gifImage.src = "assets/img/0bob-esponja.gif"
         clearInterval(intervalo1);
@@ -106,5 +112,7 @@ function iniciarTemporizadores() {
         document.querySelector(".horas2").value = "00";
         document.querySelector(".minutos2").value = "00";
         document.querySelector(".segundos2").value = "00";
+
+        worker.postMessage('stop');
     });
 }
