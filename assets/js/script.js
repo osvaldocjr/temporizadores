@@ -1,13 +1,16 @@
 const iniciarBtn = document.querySelector(".iniciar-btn");
-const pararBtn = document.querySelector(".parar-btn");
 const reiniciarBtn = document.querySelector(".reiniciar-btn");
 const gifContainer = document.querySelector(".gif-container");
 const gifImage = document.querySelector(".bob");
 const pausarBtn = document.querySelector(".pausar-btn");
 const som = document.querySelector(".meuAudio");
 
+let worker1;
+let worker2;
 let tempoTotal1 = 0;
 let tempoTotal2 = 0;
+let tempoRestante1 = 0;
+let tempoRestante2 = 0;
 let intervalo1;
 let intervalo2;
 let pausado = false;
@@ -45,6 +48,7 @@ function iniciarTemporizadores() {
         return;
     }
 
+
     duracao1 = minutos1 * 60 + segundos1;
     if (horas1 > 0) {
         duracao1 += horas1 * 3600;
@@ -62,8 +66,8 @@ function iniciarTemporizadores() {
     const contador2Elemento = document.querySelector(".contador2");
 
     // Criar um novo Web Worker para o primeiro temporizador
-    const worker1 = new Worker('assets/js/timer-worker.js');
-    const worker2 = new Worker('assets/js/timer-worker.js');
+    worker1 = new Worker('assets/js/timer-worker.js');
+    worker2 = new Worker('assets/js/timer-worker.js');
 
     // Atualizar o título da página com o tempo restante de ambos os temporizadores
     const updateTitle = () => {
@@ -168,7 +172,7 @@ function iniciarTemporizadores() {
     // Iniciar o temporizador do primeiro Web Worker
     worker1.postMessage('start');
 
-    pararBtn.addEventListener("click", () => {
+    reiniciarBtn.addEventListener("click", () => {
         gifImage.src = "assets/img/estudos-gif/0bob-esponja.gif";
         clearInterval(intervalo1);
         clearInterval(intervalo2);
@@ -187,8 +191,6 @@ function iniciarTemporizadores() {
         // Parar os temporizadores dos Web Workers
         worker1.postMessage('stop');
         worker2.postMessage('stop');
-
-        reiniciarBtn.disabled = false;
     });
 
     reiniciarBtn.addEventListener("click", () => {
@@ -196,9 +198,8 @@ function iniciarTemporizadores() {
     });
 
     function reiniciarTemporizador() {
-        pararBtn.click();
+        reiniciarBtn.click();
         iniciarBtn.click();
-        reiniciarBtn.disabled = true;
     }
 }
 
@@ -206,4 +207,33 @@ function ajustarVolume() {
     const audio = document.querySelector('.meuAudio');
     const volume = document.querySelector('.controleVolume').value;
     audio.volume = volume;
-  }
+}
+
+pausarBtn.addEventListener("click", () => {
+    if (!pausado) {
+        pausarTemporizadores();
+        pausarBtn.textContent = "Continuar tempo";
+    } else {
+        continuarTemporizadores(contador1, contador2);
+        pausarBtn.textContent = "Pausar tempo";
+    }
+});
+
+function pausarTemporizadores() {
+    pausado = true;
+    clearInterval(intervalo1);
+    clearInterval(intervalo2);
+
+    // Armazenar os tempos restantes para cada temporizador
+    tempoRestante1 = contador1;
+    tempoRestante2 = contador2;
+
+    // Parar a execução dos intervalos sem reiniciá-los
+    worker1.postMessage('pause');
+    worker2.postMessage('pause');
+}
+
+function continuarTemporizadores(tempoRestante1, tempoRestante2) {
+    pausado = false;
+    iniciarTemporizadores(tempoRestante1, tempoRestante2);
+}
