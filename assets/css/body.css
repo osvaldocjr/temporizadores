@@ -95,13 +95,15 @@ input[type=number]::-webkit-outer-spin-button {
 .meuAudio {
     display:none;
 }
+.volume-alarme {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 /* ######################################### */
 
 /* Section Tempo Inicio */
-.tempo-final {
-    margin-left:20px;
-}
 /* ######################################### */
 
 /* IMG Gif */
