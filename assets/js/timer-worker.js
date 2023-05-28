@@ -1,24 +1,17 @@
-let timer;
-let running = false;
-let seconds = 0;
+let tempoRestante = 0;
 
-self.onmessage = function (e) {
-  if (e.data === 'start' && !running) {
-    startTimer();
-  } else if (e.data === 'stop') {
-    stopTimer();
+setInterval(() => {
+  postMessage(tempoRestante);
+  tempoRestante--;
+}, 1000);
+
+onmessage = function (event) {
+  if (event.data === "pause") {
+    clearInterval();
+  } else if (event.data === "resume") {
+    setInterval(() => {
+      postMessage(tempoRestante);
+      tempoRestante--;
+    }, 1000);
   }
 };
-
-function startTimer() {
-  running = true;
-  timer = setInterval(() => {
-    seconds++;
-    self.postMessage(seconds);
-  }, 1000);
-}
-
-function stopTimer() {
-  running = false;
-  clearInterval(timer);
-}
