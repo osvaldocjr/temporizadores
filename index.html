@@ -60,11 +60,13 @@
 
             <section class="botoes">
                 <button class="iniciar-btn">Iniciar tempo</button>
-                <button class="parar-btn">Reiniciar tempo</button>
+                <button class="reiniciar-btn">Reiniciar tempo</button>
+                <button class="pausar-btn">Pausar tempo</button>
                 <div class="audio">
                     <audio class="meuAudio" controls>
-                        <source src="assets/audio/alarme.mp3" type="audio/mpeg">
+                        <source src="assets/audio/alarme.mp3" type="audio/mpeg" class="audioVolume">
                     </audio>
+                    <input type="range" class="controleVolume" min="0" max="1" step="0.01" value="1" onchange="ajustarVolume()">
                 </div>
             </section>
 
