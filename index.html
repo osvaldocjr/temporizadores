@@ -38,47 +38,54 @@
     </header>
     <div class="container">
         <main class="main-temporizador">
-            <section>
-                <div>
-                    <div class="temporizador">
-                        <label for="tempo1" class="temporizador-um">1º Temporizador:</label>
-                        <div class="ajuste">
-                            <input type="text" class="horas1" min="0" max="23" value="00" maxlength="2">:<input type="text" class="minutos1" min="0" max="59" value="00" maxlength="2">:<input type="text" class="segundos1" min="0" max="59" value="00" maxlength="2">
-                        </div>
-                    </div>
-                    <div class="divErro"></div>
+          <section>
+            <div>
+              <div class="temporizador">
+                <label for="tempo1" class="temporizador-um">1º Temporizador:</label>
+                <div class="ajuste">
+                  <input type="text" class="horas1" min="0" max="23" value="00" maxlength="2">:
+                  <input type="text" class="minutos1" min="0" max="59" value="00" maxlength="2">:
+                  <input type="text" class="segundos1" min="0" max="59" value="00" maxlength="2">
                 </div>
-
-                <div class="temporizador dois">
-                    <label for="tempo2">2º Temporizador:</label>
-                    <div class="ajuste">
-                        <input type="text" class="horas2" min="0" max="23" value="00" maxlength="2">:<input type="text" class="minutos2" min="0" max="59" value="00" maxlength="2">:<input type="text" class="segundos2" min="0" max="59" value="00" maxlength="2">
-                    </div>
-                    <span class="span">(Opcional)</span>
-                </div>
-            </section>
-
-            <section class="botoes">
-                <button class="iniciar-btn">Iniciar tempo</button>
-                <button class="reiniciar-btn">Reiniciar tempo</button>
-                <button class="pausar-btn">Pausar tempo</button>
-                <div class="audio">
-                    <audio class="meuAudio" controls>
-                        <source src="assets/audio/alarme.mp3" type="audio/mpeg" class="audioVolume">
-                    </audio>
-                    <input type="range" class="controleVolume" min="0" max="1" step="0.01" value="1" onchange="ajustarVolume()">
-                </div>
-            </section>
-
-            <section class="tempo-final">
-                <div class="contador1">1º tempo restante: 00:00:00</div>
-                <div class="contador2">2º tempo restante: 00:00:00</div>
-            </section>
+              </div>
+              <div class="divErro"></div>
+            </div>
+      
+            <div class="temporizador dois">
+              <label for="tempo2">2º Temporizador:</label>
+              <div class="ajuste">
+                <input type="text" class="horas2" min="0" max="23" value="00" maxlength="2">:
+                <input type="text" class="minutos2" min="0" max="59" value="00" maxlength="2">:
+                <input type="text" class="segundos2" min="0" max="59" value="00" maxlength="2">
+              </div>
+              <span class="span">(Opcional)</span>
+            </div>
+          </section>
+      
+          <section class="botoes">
+            <button class="iniciar-btn">Iniciar tempo</button>
+            <button class="reiniciar-btn">Reiniciar tempo</button>
+            <button class="pausar-btn1">Pausar tempo</button>
+            <button class="pausar-btn2">Pausar tempo</button>
+          </section>
+          <section>
+            <div class="audio">
+                <audio class="meuAudio" controls>
+                  <source src="assets/audio/alarme.mp3" type="audio/mpeg" class="audioVolume">
+                </audio>
+                <input type="range" class="controleVolume" min="0" max="1" step="0.01" value="1" onchange="ajustarVolume()">
+              </div>
+          </section>
+      
+          <section class="tempo-final">
+            <div class="contador1">1º tempo restante: 00:00:00</div>
+            <div class="contador2">2º tempo restante: 00:00:00</div>
+          </section>
         </main>
         <div class="gif-container">
-            <img class="bob" src="assets/img/estudos-gif/0bob-esponja.gif" alt="Imagem-Estudando">
+          <img class="bob" src="assets/img/estudos-gif/0bob-esponja.gif" alt="Imagem-Estudando">
         </div>
-    </div>
+      </div>
     <footer>Desenvolvido por Osvaldo Coelho Junior</footer>
 
     <script src="assets/js/script.js"></script>
