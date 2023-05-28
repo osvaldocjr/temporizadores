@@ -76,7 +76,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin:20px 0;
 }
 
-.iniciar-btn, .parar-btn, .pausar-btn {
+.iniciar-btn, .reiniciar-btn, .pausar-btn {
     margin-left:20px;
     font-weight:600;
     font-size:18px;
