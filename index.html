@@ -2,94 +2,97 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temporizador</title>
-    <link rel="stylesheet" href="assets/css/body.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporizador</title>
+  <link rel="stylesheet" href="assets/css/body.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 
 <body>
-    <header>
-        <nav class="nav">
-            <button class="btn-mobile">
-                Menu
-                <span class="hamburger"></span>
-            </button>
-            <ul class="menu">
-                <li><a class="link" href="https://www.linkedin.com/in/osvaldocjr/" target="_blank">
-                        Linkedin
-                        <img class="icon linkedin" src="assets/img/icons/linkedin.png" alt="Linkedin">
-                    </a>
-                </li>
-                <li><a class="link" href="https://github.com/osvaldocjr" target="_blank">
-                        Github
-                        <img class="icon github" src="assets/img/icons/github.png" alt="Github">
-                    </a>
-                </li>
-                <li><a class="link" href="https://osvaldocjr.github.io/portfolio/" target="_blank">
-                        Portfólio
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <main class="main-temporizador">
-          <section>
-            <div>
-              <div class="temporizador">
-                <label for="tempo1" class="temporizador-um">1º Temporizador:</label>
-                <div class="ajuste">
-                  <input type="text" class="horas1" min="0" max="23" value="00" maxlength="2">:
-                  <input type="text" class="minutos1" min="0" max="59" value="00" maxlength="2">:
-                  <input type="text" class="segundos1" min="0" max="59" value="00" maxlength="2">
-                </div>
-              </div>
-              <div class="divErro"></div>
+  <header>
+    <nav class="nav">
+      <button class="btn-mobile">
+        Menu
+        <span class="hamburger"></span>
+      </button>
+      <ul class="menu">
+        <li><a class="link" href="https://www.linkedin.com/in/osvaldocjr/" target="_blank">
+            Linkedin
+            <img class="icon linkedin" src="assets/img/icons/linkedin.png" alt="Linkedin">
+          </a>
+        </li>
+        <li><a class="link" href="https://github.com/osvaldocjr" target="_blank">
+            Github
+            <img class="icon github" src="assets/img/icons/github.png" alt="Github">
+          </a>
+        </li>
+        <li><a class="link" href="https://osvaldocjr.github.io/portfolio/" target="_blank">
+            Portfólio
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main-temporizador">
+      <section>
+        <div>
+          <div class="temporizador">
+            <label for="tempo1" class="temporizador-um">1º Temporizador:</label>
+            <div class="ajuste">
+              <input type="text" class="horas1" min="0" max="23" value="00" maxlength="2">:
+              <input type="text" class="minutos1" min="0" max="59" value="00" maxlength="2">:
+              <input type="text" class="segundos1" min="0" max="59" value="00" maxlength="2">
             </div>
-      
-            <div class="temporizador dois">
-              <label for="tempo2">2º Temporizador:</label>
-              <div class="ajuste">
-                <input type="text" class="horas2" min="0" max="23" value="00" maxlength="2">:
-                <input type="text" class="minutos2" min="0" max="59" value="00" maxlength="2">:
-                <input type="text" class="segundos2" min="0" max="59" value="00" maxlength="2">
-              </div>
-              <span class="span">(Opcional)</span>
-            </div>
-          </section>
-      
-          <section class="botoes">
-            <button class="iniciar-btn">Iniciar tempo</button>
-            <button class="reiniciar-btn">Reiniciar tempo</button>
-            <button class="pausar-btn1">Pausar tempo</button>
-            <button class="pausar-btn2">Pausar tempo</button>
-          </section>
-          <section>
-            <div class="audio">
-                <audio class="meuAudio" controls>
-                  <source src="assets/audio/alarme.mp3" type="audio/mpeg" class="audioVolume">
-                </audio>
-                <input type="range" class="controleVolume" min="0" max="1" step="0.01" value="1" onchange="ajustarVolume()">
-              </div>
-          </section>
-      
-          <section class="tempo-final">
-            <div class="contador1">1º tempo restante: 00:00:00</div>
-            <div class="contador2">2º tempo restante: 00:00:00</div>
-          </section>
-        </main>
-        <div class="gif-container">
-          <img class="bob" src="assets/img/estudos-gif/0bob-esponja.gif" alt="Imagem-Estudando">
+          </div>
+          <div class="divErro"></div>
         </div>
-      </div>
-    <footer>Desenvolvido por Osvaldo Coelho Junior</footer>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/header.js"></script>
+        <div class="temporizador dois">
+          <label for="tempo2">2º Temporizador:</label>
+          <div class="ajuste">
+            <input type="text" class="horas2" min="0" max="23" value="00" maxlength="2">:
+            <input type="text" class="minutos2" min="0" max="59" value="00" maxlength="2">:
+            <input type="text" class="segundos2" min="0" max="59" value="00" maxlength="2">
+          </div>
+          <span class="span">(Opcional)</span>
+        </div>
+      </section>
+
+      <section class="botoes">
+        <button class="iniciar-btn">Iniciar tempo</button>
+        <button class="reiniciar-btn">Reiniciar tempo</button>
+        <button class="pausar-btn1">Pausar tempo</button>
+        <button class="pausar-btn2">Pausar tempo</button>
+      </section>
+      <section>
+        <div class="audio">
+          <audio class="meuAudio" controls>
+            <source src="assets/audio/alarme.mp3" type="audio/mpeg" class="audioVolume">
+          </audio>
+          <div class="volume-alarme">
+            Volume do alarme <input type="range" class="controleVolume" min="0" max="1" step="0.01" value="1"
+              onchange="ajustarVolume()">
+          </div>
+        </div>
+      </section>
+
+      <section class="tempo-final">
+        <div class="contador1">1º tempo restante: 00:00:00</div>
+        <div class="contador2">2º tempo restante: 00:00:00</div>
+      </section>
+    </main>
+    <div class="gif-container">
+      <img class="bob" src="assets/img/estudos-gif/0bob-esponja.gif" alt="Imagem-Estudando">
+    </div>
+  </div>
+  <footer>Desenvolvido por Osvaldo Coelho Junior</footer>
+
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/header.js"></script>
 </body>
 
 </html>
