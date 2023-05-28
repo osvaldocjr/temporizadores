@@ -74,10 +74,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 .botoes {
     margin:20px 0;
+    display:flex;
+    gap:10px;
 }
 
-.iniciar-btn, .reiniciar-btn, .pausar-btn {
-    margin-left:20px;
+.iniciar-btn, .reiniciar-btn, .pausar-btn1, .pausar-btn2 {
     font-weight:600;
     font-size:18px;
     height:55px;
@@ -88,7 +89,9 @@ input[type=number]::-webkit-outer-spin-button {
     color:#a2a;
     cursor:pointer;
 }
-
+.pausar-btn2 {
+    display:none;
+}
 .meuAudio {
     display:none;
 }
