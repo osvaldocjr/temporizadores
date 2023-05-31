@@ -6,7 +6,7 @@ O que foi feito:<br>
 
 Projeto totalmente responsivo.<br>
 Menu interativo.<br>
-Titulo com o tempo do cronometro.<br>
+Titulo com o tempo do cronometro. (1° 00:00:00 - 2° 00:00:00)<br>
 Temporizador 1 (obrigatório).<br>
 Temporizador 2 (opcional).<br>
 Botão de iniciar.<br>
@@ -34,7 +34,7 @@ What has been done:<br>
 
 Fully responsive design.<br>
 Interactive menu.<br>
-Timer title with the countdown time.<br>
+Timer title with the countdown time. (1° 00:00:00 - 2° 00:00:00)<br>
 Timer 1 (mandatory).<br>
 Timer 2 (optional).<br>
 Start button.<br>
