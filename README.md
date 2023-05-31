@@ -12,6 +12,7 @@ Temporizador 2 (opcional).<br>
 Botão de iniciar.<br>
 Botão de reiniciar.<br>
 Botão de pausar o tempo.<br>
+Controle de volume do alarme.<br>
 Imagem no formato GIF.<br>
 Utilização da API Web Worker.<br>
 Rodapé.<br>
@@ -40,6 +41,7 @@ Timer 2 (optional).<br>
 Start button.<br>
 Reset button.<br>
 Pause button for the timer.<br>
+Alarm volume control.<br<
 GIF image format.<br>
 Utilization of the Web Worker API.<br>
 Footer.<br>
