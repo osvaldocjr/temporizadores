@@ -144,16 +144,21 @@ function iniciarTemporizador1() {
         if (contador1 > 0) {
             pausarBtn1.style.display = "inline-block";
             pausarBtn2.style.display = "none";
-        }
-        
-        if (contador1 <= 600) {
             gifImage.src = "assets/img/estudos-gif/1bob-comecou-estudar.gif";
-        } else if (contador1 <= 1200) {
+            gifImage.classList.add("bob1");
+        }
+        // Verificar o tempo decorrido e atualizar a imagem de acordo
+        if (contador1 <= duracao1 - 900) {
             gifImage.src = "assets/img/estudos-gif/2bob-lapis.gif";
-        } else if (contador1 <= 1800) {
+            gifImage.classList.add("bob2");
+        }
+        if (contador1 <= duracao1 - 1800) {
             gifImage.src = "assets/img/estudos-gif/3homer-estudando.gif";
-        } else if (contador1 <= 2700) {
+            gifImage.classList.add("bob3");
+        }
+        if (contador1 <= duracao1 - 2700) {
             gifImage.src = "assets/img/estudos-gif/4bob-nao-aguenta-mais.gif";
+            gifImage.classList.add("bob4");
         }
     }, 1000);
 }
