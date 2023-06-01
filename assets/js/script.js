@@ -76,8 +76,6 @@ function iniciarTemporizadores() {
 
     contador1 = duracao1;
     contador2 = duracao2;
-
-    // Criar um novo Web Worker para o primeiro temporizador
     worker1 = new Worker("assets/js/timer-worker.js");
     worker2 = new Worker("assets/js/timer-worker.js");
 
@@ -140,14 +138,12 @@ function iniciarTemporizador1() {
             contador1
         )} - 2° ${formatarTempo(contador2)}`;
 
-        // Verificar o estado do contador1 e atualizar os estilos dos botões de pausa
         if (contador1 > 0) {
             pausarBtn1.style.display = "inline-block";
             pausarBtn2.style.display = "none";
             gifImage.src = "assets/img/estudos-gif/1bob-comecou-estudar.gif";
             gifImage.classList.add("bob1");
         }
-        // Verificar o tempo decorrido e atualizar a imagem de acordo
         if (contador1 <= duracao1 - 900) {
             gifImage.src = "assets/img/estudos-gif/2bob-lapis.gif";
             gifImage.classList.add("bob2");
