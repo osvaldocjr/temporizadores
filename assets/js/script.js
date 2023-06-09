@@ -136,7 +136,7 @@ function iniciarTemporizador1() {
         contador1Elemento.textContent = `1° tempo restante: ${formatarTempo(contador1)}`
         document.title = `1° ${formatarTempo(
             contador1
-        )} - 2° ${formatarTempo(contador2)}`;
+        )}`;
 
         if (contador1 > 0) {
             pausarBtn1.style.display = "inline-block";
@@ -169,9 +169,7 @@ function iniciarTemporizador2() {
             som.play();
         }
         contador2Elemento.textContent = `2º tempo restante: ${formatarTempo(contador2)}`;
-        document.title = `1° ${formatarTempo(
-            contador1
-        )} - 2° ${formatarTempo(contador2)}`;
+        document.title = `2° ${formatarTempo(contador2)}`;
 
         // Verificar o estado do contador2 e atualizar os estilos dos botões de pausa
         if (contador2 > 0) {
