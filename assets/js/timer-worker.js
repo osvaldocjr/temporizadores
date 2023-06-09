@@ -1,17 +1,19 @@
 let tempoRestante = 0;
+let intervalo;
 
-setInterval(() => {
-  postMessage(tempoRestante);
-  tempoRestante--;
-}, 1000);
+function iniciarContador() {
+  intervalo = setInterval(() => {
+    postMessage(tempoRestante);
+    tempoRestante--;
+  }, 1000);
+}
 
 onmessage = function (event) {
   if (event.data === "pause") {
-    clearInterval();
+    clearInterval(intervalo);
   } else if (event.data === "resume") {
-    setInterval(() => {
-      postMessage(tempoRestante);
-      tempoRestante--;
-    }, 1000);
+    iniciarContador();
   }
 };
+
+iniciarContador();
