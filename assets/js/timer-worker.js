@@ -1,5 +1,5 @@
 let tempoRestante = 0;
-let intervalo;
+let intervalo = null;
 
 function iniciarContador() {
   intervalo = setInterval(() => {

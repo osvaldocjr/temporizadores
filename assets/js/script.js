@@ -54,7 +54,12 @@ function iniciarTemporizadores() {
         return;
     }
 
-    if (minutos1 > 59 || minutos2 > 59 || segundos1 > 59 || segundos2 > 59) {
+    if (
+        minutos1 > 59 ||
+        minutos2 > 59 ||
+        segundos1 > 59 ||
+        segundos2 > 59
+    ) {
         alert("Os minutos e/ou segundos devem ser menores ou iguais a 59");
         return;
     }
@@ -79,11 +84,6 @@ function iniciarTemporizadores() {
     worker1 = new Worker("assets/js/timer-worker.js");
     worker2 = new Worker("assets/js/timer-worker.js");
 
-    // Definir a mensagem do título da página
-    document.title = `1° ${formatarTempo(
-        contador1
-    )} - 2° ${formatarTempo(contador2)}`;
-
     // Definir o comportamento do Web Worker para atualizar os contadores
     worker1.onmessage = function (event) {
         if (!pausado) {
@@ -101,19 +101,20 @@ function iniciarTemporizadores() {
         }
     };
 
+    // Definir o comportamento do Web Worker para receber comandos de pausa e continuar
     worker1.onmessage = function (event) {
-        if (!pausado) {
-            contador1 = event.data;
-            contador1Elemento.textContent = formatarTempo(contador1);
-            updateTitle();
+        if (event.data === "pause") {
+            pausado = true;
+        } else if (event.data === "resume") {
+            pausado = false;
         }
     };
 
     worker2.onmessage = function (event) {
-        if (!pausado2) {
-            contador2 = event.data;
-            contador2Elemento.textContent = formatarTempo(contador2);
-            updateTitle();
+        if (event.data === "pause") {
+            pausado2 = true;
+        } else if (event.data === "resume") {
+            pausado2 = false;
         }
     };
 
