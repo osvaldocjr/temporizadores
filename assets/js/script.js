@@ -28,7 +28,7 @@ function updateTitle() {
     const tempoRestante1 = formatarTempo(contador1);
     const tempoRestante2 = formatarTempo(contador2).split(":").slice(1).join(":");
     document.title = `1° ${tempoRestante1} - 2° ${tempoRestante2}`;
-  }
+}
 
 function iniciarTemporizadores() {
     const horas1 = parseInt(document.querySelector(".horas1").value);
@@ -262,4 +262,6 @@ function formatarTempo(tempo) {
 function ajustarVolume() {
     const volume = document.querySelector(".controleVolume").value;
     som.volume = volume;
-  }
+}
+
+// Teste
