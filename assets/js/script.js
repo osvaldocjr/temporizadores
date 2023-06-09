@@ -85,38 +85,38 @@ function iniciarTemporizadores() {
     worker2 = new Worker("assets/js/timer-worker.js");
 
     // Definir o comportamento do Web Worker para atualizar os contadores
-    worker1.onmessage = function (event) {
-        if (!pausado) {
-            contador1 = event.data;
-            contador1Elemento.textContent = formatarTempo(contador1);
-            updateTitle();
-        }
-    };
+  worker1.onmessage = function (event) {
+    if (!pausado) {
+      contador1 = event.data;
+      contador1Elemento.textContent = formatarTempo(contador1);
+      updateTitle();
+    }
+  };
 
-    worker2.onmessage = function (event) {
-        if (!pausado2) {
-            contador2 = event.data;
-            contador2Elemento.textContent = formatarTempo(contador2);
-            updateTitle();
-        }
-    };
+  worker2.onmessage = function (event) {
+    if (!pausado2) {
+      contador2 = event.data;
+      contador2Elemento.textContent = formatarTempo(contador2);
+      updateTitle();
+    }
+  };
 
-    // Definir o comportamento do Web Worker para receber comandos de pausa e continuar
-    worker1.onmessage = function (event) {
-        if (event.data === "pause") {
-            pausado = true;
-        } else if (event.data === "resume") {
-            pausado = false;
-        }
-    };
+  // Definir o comportamento do Web Worker para receber comandos de pausa e continuar
+  worker1.onmessage = function (event) {
+    if (event.data === "pause") {
+      pausado = true;
+    } else if (event.data === "resume") {
+      pausado = false;
+    }
+  };
 
-    worker2.onmessage = function (event) {
-        if (event.data === "pause") {
-            pausado2 = true;
-        } else if (event.data === "resume") {
-            pausado2 = false;
-        }
-    };
+  worker2.onmessage = function (event) {
+    if (event.data === "pause") {
+      pausado2 = true;
+    } else if (event.data === "resume") {
+      pausado2 = false;
+    }
+  };
 
     // Iniciar os temporizadores
     iniciarTemporizador1();
