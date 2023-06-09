@@ -15,5 +15,3 @@ onmessage = function (event) {
     }, 1000);
   }
 };
-
-// Teste

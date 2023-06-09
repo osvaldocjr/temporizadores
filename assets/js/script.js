@@ -263,5 +263,3 @@ function ajustarVolume() {
     const volume = document.querySelector(".controleVolume").value;
     som.volume = volume;
 }
-
-// Teste
