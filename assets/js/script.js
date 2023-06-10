@@ -1,263 +1,166 @@
-const iniciarBtn = document.querySelector(".iniciar-btn");
-const reiniciarBtn = document.querySelector(".reiniciar-btn");
-const gifContainer = document.querySelector(".gif-container");
-const gifImage = document.querySelector(".bob");
-const pausarBtn1 = document.querySelector(".pausar-btn1");
-const pausarBtn2 = document.querySelector(".pausar-btn2");
-const som = document.querySelector(".meuAudio");
-const contador1Elemento = document.querySelector(".contador1");
-const contador2Elemento = document.querySelector(".contador2");
+let timerWorker1; // Variável para o Worker do tempo 1
+let timerWorker2; // Variável para o Worker do tempo 2
+let isPaused1 = false; // Variável para controlar o estado de pausa do tempo 1
+let isPaused2 = false; // Variável para controlar o estado de pausa do tempo 2
 
-let worker1;
-let worker2;
-let tempoTotal1 = 0;
-let tempoTotal2 = 0;
-let tempoRestante1 = 0;
-let tempoRestante2 = 0;
-let intervalo1;
-let intervalo2;
-let pausado = false;
-let pausado2 = false;
-let duracao1, duracao2, contador1, contador2;
 
-iniciarBtn.addEventListener("click", () => {
-    iniciarTemporizadores();
-});
-
-function updateTitle() {
-    const tempoRestante1 = formatarTempo(contador1);
-    const tempoRestante2 = formatarTempo(contador2).split(":").slice(1).join(":");
-    document.title = `1° ${tempoRestante1} - 2° ${tempoRestante2}`;
+function formatTime(hours, minutes, seconds) {
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-function iniciarTemporizadores() {
-    const horas1 = parseInt(document.querySelector(".horas1").value);
-    const minutos1 = parseInt(document.querySelector(".minutos1").value);
-    const segundos1 = parseInt(document.querySelector(".segundos1").value);
-    const horas2 = parseInt(document.querySelector(".horas2").value);
-    const minutos2 = parseInt(document.querySelector(".minutos2").value);
-    const segundos2 = parseInt(document.querySelector(".segundos2").value);
+// Função para iniciar o temporizador do tempo 1
+function startTimer1(hours, minutes, seconds) {
+    timerWorker1 = new Worker('assets/js/timer-worker1.js');
 
-    const duracaoTotal =
-        horas1 * 3600 +
-        minutos1 * 60 +
-        segundos1 +
-        horas2 * 3600 +
-        minutos2 * 60 +
-        segundos2;
-    if (duracaoTotal === 0) {
-        return;
-    }
+    timerWorker1.postMessage({
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+    });
 
-    if (horas1 > 99 || horas2 > 99) {
-        alert("A hora deve ser menor ou igual a 99");
-        return;
-    }
+    timerWorker1.onmessage = function (event) {
+        const message = event.data;
 
-    if (
-        minutos1 > 59 ||
-        minutos2 > 59 ||
-        segundos1 > 59 ||
-        segundos2 > 59
-    ) {
-        alert("Os minutos e/ou segundos devem ser menores ou iguais a 59");
-        return;
-    }
-
-    if (horas1 === 0 && minutos1 === 0 && segundos1 === 0) {
-        alert("Valores inválidos");
-        return;
-    }
-
-    duracao1 = minutos1 * 60 + segundos1;
-    if (horas1 > 0) {
-        duracao1 += horas1 * 3600;
-    }
-
-    duracao2 = minutos2 * 60 + segundos2;
-    if (horas2 > 0) {
-        duracao2 += horas2 * 3600;
-    }
-
-    contador1 = duracao1;
-    contador2 = duracao2;
-    worker1 = new Worker("assets/js/timer-worker.js");
-    worker2 = new Worker("assets/js/timer-worker.js");
-
-    // Definir o comportamento do Web Worker para atualizar os contadores
-  worker1.onmessage = function (event) {
-    if (!pausado) {
-      contador1 = event.data;
-      contador1Elemento.textContent = formatarTempo(contador1);
-      updateTitle();
-    }
-  };
-
-  worker2.onmessage = function (event) {
-    if (!pausado2) {
-      contador2 = event.data;
-      contador2Elemento.textContent = formatarTempo(contador2);
-      updateTitle();
-    }
-  };
-
-  // Definir o comportamento do Web Worker para receber comandos de pausa e continuar
-  worker1.onmessage = function (event) {
-    if (event.data === "pause") {
-      pausado = true;
-    } else if (event.data === "resume") {
-      pausado = false;
-    }
-  };
-
-  worker2.onmessage = function (event) {
-    if (event.data === "pause") {
-      pausado2 = true;
-    } else if (event.data === "resume") {
-      pausado2 = false;
-    }
-  };
-
-    // Iniciar os temporizadores
-    iniciarTemporizador1();
-}
-
-function iniciarTemporizador1() {
-    clearInterval(intervalo1);
-    intervalo1 = setInterval(() => {
-        if (contador1 > 0) {
-            contador1--;
+        if (message === 'done') {
+            contador1Element.textContent = '1° tempo esgotado!';
+            updatePageTitle('1° tempo esgotado!');
+            startTimer2();
         } else {
-            clearInterval(intervalo1);
-            gifImage.src = "assets/img/estudos-gif/0bob-esponja.gif";
-            som.play();
-            iniciarTemporizador2();
+            contador1Element.textContent = `1° tempo restante: ${message}`;
+            updatePageTitle(`1° ${message}`);
         }
-        contador1Elemento.textContent = `1° tempo restante: ${formatarTempo(contador1)}`
-        document.title = `1° ${formatarTempo(
-            contador1
-        )}`;
-
-        if (contador1 > 0) {
-            pausarBtn1.style.display = "inline-block";
-            pausarBtn2.style.display = "none";
-            gifImage.src = "assets/img/estudos-gif/1bob-comecou-estudar.gif";
-            gifImage.classList.add("bob1");
-        }
-        if (contador1 <= duracao1 - 900) {
-            gifImage.src = "assets/img/estudos-gif/2bob-lapis.gif";
-            gifImage.classList.add("bob2");
-        }
-        if (contador1 <= duracao1 - 1800) {
-            gifImage.src = "assets/img/estudos-gif/3homer-estudando.gif";
-            gifImage.classList.add("bob3");
-        }
-        if (contador1 <= duracao1 - 2700) {
-            gifImage.src = "assets/img/estudos-gif/4bob-nao-aguenta-mais.gif";
-            gifImage.classList.add("bob4");
-        }
-    }, 1000);
+    };
 }
 
-function iniciarTemporizador2() {
-    clearInterval(intervalo2);
-    intervalo2 = setInterval(() => {
-        if (contador2 > 0) {
-            contador2--;
+// Função para iniciar o temporizador do tempo 2
+function startTimer2() {
+    const horas2 = horas2Input.value;
+    const minutos2 = minutos2Input.value;
+    const segundos2 = segundos2Input.value;
+
+    timerWorker2 = new Worker('assets/js/timer-worker2.js');
+
+    timerWorker2.postMessage({
+        hours: horas2,
+        minutes: minutos2,
+        seconds: segundos2,
+    });
+
+    timerWorker2.onmessage = function (event) {
+        const message = event.data;
+
+        if (message === 'done') {
+            contador2Element.textContent = '2° tempo esgotado!';
+            updatePageTitle('2° tempo esgotado!');
         } else {
-            clearInterval(intervalo2);
-            som.play();
+            contador2Element.textContent = `2° tempo restante: ${message}`;
+            updatePageTitle(`2° ${message}`);
         }
-        contador2Elemento.textContent = `2º tempo restante: ${formatarTempo(contador2)}`;
-        document.title = `2° ${formatarTempo(contador2)}`;
+    };
+}
 
-        // Verificar o estado do contador2 e atualizar os estilos dos botões de pausa
-        if (contador2 > 0) {
-            pausarBtn1.style.display = "none";
-            pausarBtn2.style.display = "inline-block";
-            gifImage.src = "assets/img/estudos-gif/0bob-esponja.gif";
+// Função para atualizar o título da página com o tempo restante
+function updatePageTitle(time) {
+    document.title = time;
+}
+
+// Variáveis para os elementos HTML
+const horas1Input = document.querySelector('.horas1');
+const minutos1Input = document.querySelector('.minutos1');
+const segundos1Input = document.querySelector('.segundos1');
+const contador1Element = document.querySelector('.contador1');
+
+const horas2Input = document.querySelector('.horas2');
+const minutos2Input = document.querySelector('.minutos2');
+const segundos2Input = document.querySelector('.segundos2');
+const contador2Element = document.querySelector('.contador2');
+
+const iniciarBtn = document.querySelector('.iniciar-btn');
+const reiniciarBtn = document.querySelector('.reiniciar-btn');
+const pausarBtn1 = document.querySelector('.pausar-btn1');
+const pausarBtn2 = document.querySelector('.pausar-btn2');
+
+// Manipula o clique no botão de iniciar
+iniciarBtn.addEventListener('click', () => {
+    const horas1 = horas1Input.value;
+    const minutos1 = minutos1Input.value;
+    const segundos1 = segundos1Input.value;
+
+    if (isPaused1) {
+        // Se o tempo 1 estiver em pausa, continua a partir do ponto em que parou
+        isPaused1 = false;
+        timerWorker1.postMessage('resume');
+        iniciarBtn.textContent = 'Iniciar tempo';
+    } else {
+        // Caso contrário, inicia o tempo 1 normalmente
+        startTimer1(horas1, minutos1, segundos1);
+        iniciarBtn.textContent = 'Pausar tempo';
+    }
+});
+
+// Manipula o clique no botão de pausar para o primeiro temporizador
+pausarBtn1.addEventListener('click', () => {
+    if (timerWorker1) {
+        if (!isPaused1) {
+            // Se o tempo 1 estiver em execução, pausa e altera o rótulo do botão
+            isPaused1 = true;
+            timerWorker1.postMessage('pause');
+            pausarBtn1.textContent = 'Continuar';
+        } else {
+            // Se o tempo 1 estiver pausado, continua a partir do ponto em que parou
+            isPaused1 = false;
+            timerWorker1.postMessage('resume');
+            pausarBtn1.textContent = 'Pausar tempo';
         }
-    }, 1000);
-}
-
-reiniciarBtn.addEventListener("click", () => {
-    reiniciarTemporizadores();
-});
-
-function reiniciarTemporizadores() {
-    clearInterval(intervalo1);
-    clearInterval(intervalo2);
-    worker1.terminate();
-    worker2.terminate();
-    contador1 = duracao1;
-    contador2 = duracao2;
-    tempoRestante1 = 0;
-    tempoRestante2 = 0;
-    contador1Elemento.textContent = formatarTempo(contador1);
-    contador2Elemento.textContent = formatarTempo(contador2);
-    document.title = "Temporizador";
-    gifImage.src = "assets/img/estudos-gif/0bob-esponja.gif";
-    som.pause();
-    som.currentTime = 0;
-    pausarBtn1.style.display = "inline-block";
-    pausarBtn2.style.display = "none";
-
-    contador1Elemento.textContent = "1º tempo restante: 00:00:00";
-    contador2Elemento.textContent = "2º tempo restante: 00:00:00";
-
-    document.querySelector(".horas1").value = "00";
-    document.querySelector(".minutos1").value = "00";
-    document.querySelector(".segundos1").value = "00";
-    document.querySelector(".horas2").value = "00";
-    document.querySelector(".minutos2").value = "00";
-    document.querySelector(".segundos2").value = "00";
-}
-
-pausarBtn1.addEventListener("click", () => {
-    pausarTemporizador1();
-});
-
-function pausarTemporizador1() {
-    if (!pausado) {
-        clearInterval(intervalo1);
-        worker1.postMessage("pause");
-        pausado = true;
-        pausarBtn1.textContent = "Continuar 1° tempo";
-    } else {
-        iniciarTemporizador1();
-        worker1.postMessage("resume");
-        pausado = false;
-        pausarBtn1.textContent = "Pausar 1° tempo";
     }
-}
-
-pausarBtn2.addEventListener("click", () => {
-    pausarTemporizador2();
 });
 
-function pausarTemporizador2() {
-    if (!pausado2) {
-        clearInterval(intervalo2);
-        worker2.postMessage("pause");
-        pausado2 = true;
-        pausarBtn2.textContent = "Continuar 2° tempo";
-    } else {
-        iniciarTemporizador2();
-        worker2.postMessage("resume");
-        pausado2 = false;
-        pausarBtn2.textContent = "Pausar 2° tempo";
+
+// Manipula o clique no botão de reiniciar
+reiniciarBtn.addEventListener('click', () => {
+    if (timerWorker1) {
+        timerWorker1.terminate();
+        timerWorker1 = null;
+        contador1Element.textContent = '1° tempo restante: 00:00:00';
+        horas1Input.value = '00';
+        minutos1Input.value = '00';
+        segundos1Input.value = '00';
+        iniciarBtn.textContent = 'Iniciar tempo';
+        updatePageTitle('Temporizador');
     }
-}
 
-function formatarTempo(tempo) {
-    const horas = Math.floor(tempo / 3600);
-    const minutos = Math.floor((tempo % 3600) / 60);
-    const segundos = tempo % 60;
+    if (timerWorker2) {
+        timerWorker2.terminate();
+        timerWorker2 = null;
+        contador2Element.textContent = '2° tempo restante: 00:00:00';
+        horas2Input.value = '00';
+        minutos2Input.value = '00';
+        segundos2Input.value = '00';
+        updatePageTitle('Temporizador');
+    }
+});
 
-    return `${horas.toString().padStart(2, "0")}:${minutos.toString().padStart(2, "0")}:${segundos.toString().padStart(2, "0")}`;
-}
+// Manipula o clique no botão de pausar para o segundo temporizador
+pausarBtn2.addEventListener('click', () => {
+    if (timerWorker2) {
+        if (!isPaused2) {
+            // Se o tempo 2 estiver em execução, pausa e altera o rótulo do botão
+            isPaused2 = true;
+            timerWorker2.postMessage('pause');
+            pausarBtn2.textContent = 'Continuar';
+        } else {
+            // Se o tempo 2 estiver pausado, continua a partir do ponto em que parou
+            isPaused2 = false;
+            timerWorker2.postMessage('resume');
+            pausarBtn2.textContent = 'Pausar tempo';
+        }
+    }
+});
 
+// Manipula o volume do áudio
 function ajustarVolume() {
-    const volume = document.querySelector(".controleVolume").value;
-    som.volume = volume;
+    const audio = document.querySelector('.meuAudio');
+    const controleVolume = document.querySelector('.controleVolume');
+
+    audio.volume = controleVolume.value;
 }

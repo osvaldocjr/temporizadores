@@ -78,7 +78,9 @@ input[type=number]::-webkit-outer-spin-button {
     display:flex;
     gap:10px;
 }
-
+.pausar-btn1, .pausar-btn2 {
+    display:none; /*Até eu conseguir arrumar o botão*/
+}
 .iniciar-btn, .reiniciar-btn, .pausar-btn1, .pausar-btn2 {
     font-weight:600;
     font-size:18px;
