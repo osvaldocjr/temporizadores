@@ -24,7 +24,16 @@ function startTimer1(hours, minutes, seconds) {
         if (message === 'done') {
             contador1Element.textContent = '1° tempo esgotado!';
             updatePageTitle('1° tempo esgotado!');
-            startTimer2();
+            reproduzirAudio();
+
+            const horas2 = horas2Input.value;
+            const minutos2 = minutos2Input.value;
+            const segundos2 = segundos2Input.value;
+
+            // Verifica se o tempo 2 tem algum valor preenchido
+            if (horas2 !== '00' || minutos2 !== '00' || segundos2 !== '00') {
+                startTimer2();
+            }
         } else {
             contador1Element.textContent = `1° tempo restante: ${message}`;
             updatePageTitle(`1° ${message}`);
@@ -52,6 +61,7 @@ function startTimer2() {
         if (message === 'done') {
             contador2Element.textContent = '2° tempo esgotado!';
             updatePageTitle('2° tempo esgotado!');
+            reproduzirAudio();
         } else {
             contador2Element.textContent = `2° tempo restante: ${message}`;
             updatePageTitle(`2° ${message}`);
@@ -157,7 +167,11 @@ pausarBtn2.addEventListener('click', () => {
     }
 });
 
-// Manipula o volume do áudio
+function reproduzirAudio() {
+    const audioElement = document.querySelector('.meuAudio');
+    audioElement.play(); // Reproduz o áudio
+}
+
 function ajustarVolume() {
     const audio = document.querySelector('.meuAudio');
     const controleVolume = document.querySelector('.controleVolume');
